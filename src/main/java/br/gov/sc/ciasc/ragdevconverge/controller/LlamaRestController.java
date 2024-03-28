@@ -33,13 +33,13 @@ public class LlamaRestController {
         return ResponseEntity.status(HttpStatus.OK).body(llamaResponse);
     }
 
-    @GetMapping(value = "/stream", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
+    @GetMapping(value = "/stream")
     public Flux<String> generateMessageStream(@RequestParam String userQuery) {
         return llamaAiService.generateMessageStream(userQuery);
     }
 
-    @GetMapping(value = "/vector-db")
-    public List<Placa> getData(@RequestParam String userQuery) {
-        return vectorDbService.buscaPlacas(userQuery);
+    @GetMapping(value = "/placas")
+    public List<Placa> buscaPlacas(@RequestParam String userQuery) {
+        return vectorDbService.buscaPlacas(userQuery, 5);
     }
 }

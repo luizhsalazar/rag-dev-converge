@@ -22,7 +22,7 @@ public class VectorDbService {
 
         JdbcClient.StatementSpec query = jdbcClient.sql(
                 "SELECT content, 1 - (embedding <=> :user_promt::vector) AS cosine_similarity " +
-                        "        FROM embeddings_placas " +
+                        "        FROM embeddings_placas_anon " +
                         "        ORDER BY cosine_similarity desc " +
                         "        LIMIT :limit")
                 .param("user_promt", promptEmbedding.toString())

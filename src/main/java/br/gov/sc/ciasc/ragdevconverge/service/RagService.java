@@ -1,6 +1,6 @@
 package br.gov.sc.ciasc.ragdevconverge.service;
 
-import br.gov.sc.ciasc.ragdevconverge.model.LlamaResponse;
+import br.gov.sc.ciasc.ragdevconverge.model.ChatResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,9 +8,9 @@ import java.util.List;
 @Service
 public class RagService {
 
-    private final VectorDbService vectorDbService;
+    private final AlprService alprService;
 
-    private final LlamaAiService llamaAiService;
+    private final ChatService chatService;
 
     private static final String PROMPT_AUMENTADO =
     """
@@ -28,18 +28,18 @@ public class RagService {
 //                    Don't add any other text to the response. Don't add the new line or any other symbols to the response. Send back the raw JSON.
 //                    """);
 
-    public RagService(VectorDbService vectorDbService, LlamaAiService llamaAiService) {
-        this.vectorDbService = vectorDbService;
-        this.llamaAiService = llamaAiService;
+    public RagService(AlprService alprService, ChatService chatService) {
+        this.alprService = alprService;
+        this.chatService = chatService;
     }
 
-    public LlamaResponse rag(String userQuery) {
-        var placas = vectorDbService.buscaPlacas(userQuery, 5);
+    public ChatResponse rag(String userQuery) {
+        var placas = alprService.buscaPlacas(userQuery, 5);
         List<String> listPlacas = placas.stream().map(placa -> String.format("%s\n", placa.content())).toList();
         String placasString = String.join("\n", listPlacas);
 
         String promptAumentado = String.format(PROMPT_AUMENTADO, placasString, userQuery);
 
-        return llamaAiService.generateMessage(promptAumentado);
+        return chatService.generateMessage(promptAumentado);
     }
 }

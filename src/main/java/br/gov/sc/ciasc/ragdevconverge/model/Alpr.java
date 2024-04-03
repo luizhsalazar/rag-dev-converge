@@ -1,4 +1,4 @@
 package br.gov.sc.ciasc.ragdevconverge.model;
 
-public record Placa (String content) {
+public record Alpr(String content) {
 }

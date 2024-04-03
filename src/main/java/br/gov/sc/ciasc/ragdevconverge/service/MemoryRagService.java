@@ -1,6 +1,6 @@
 package br.gov.sc.ciasc.ragdevconverge.service;
 
-import br.gov.sc.ciasc.ragdevconverge.model.LlamaResponse;
+import br.gov.sc.ciasc.ragdevconverge.model.ChatResponse;
 import dev.langchain4j.data.message.AiMessage;
 import dev.langchain4j.data.message.UserMessage;
 import dev.langchain4j.memory.ChatMemory;
@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class MemoryRagService {
 
-    private final VectorDbService vectorDbService;
+    private final AlprService alprService;
 
     private final ChatMemory chatMemory;
 
@@ -30,17 +30,17 @@ public class MemoryRagService {
             Query:  %s
     """;
 
-    public MemoryRagService(VectorDbService vectorDbService) {
-        this.vectorDbService = vectorDbService;
+    public MemoryRagService(AlprService alprService) {
+        this.alprService = alprService;
         chatMemory = MessageWindowChatMemory.withMaxMessages(20);
     }
 
-    public LlamaResponse rag(String userQuery) {
+    public ChatResponse rag(String userQuery) {
         ChatLanguageModel model = OpenAiChatModel.withApiKey(openAiKey);
         var userPrompt = userQuery;
 
         if (chatMemory.messages().isEmpty()) {
-            var placas = vectorDbService.buscaPlacas(userPrompt, 5);
+            var placas = alprService.buscaPlacas(userPrompt, 5);
             List<String> listPlacas = placas.stream().map(placa -> String.format("%s\n", placa.content())).toList();
             String placasString = String.join("\n", listPlacas);
 
@@ -51,6 +51,6 @@ public class MemoryRagService {
         AiMessage answer = model.generate(chatMemory.messages()).content();
         chatMemory.add(answer);
 
-        return new LlamaResponse(answer.text());
+        return new ChatResponse(answer.text());
     }
 }

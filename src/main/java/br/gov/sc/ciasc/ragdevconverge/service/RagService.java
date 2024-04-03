@@ -1,6 +1,6 @@
 package br.gov.sc.ciasc.ragdevconverge.service;
 
-import br.gov.sc.ciasc.ragdevconverge.model.ChatResponse;
+import br.gov.sc.ciasc.ragdevconverge.model.RagResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public class RagService {
         this.chatService = chatService;
     }
 
-    public ChatResponse rag(String userQuery) {
+    public RagResponse rag(String userQuery) {
         var placas = alprService.buscaPlacas(userQuery, 5);
         List<String> listPlacas = placas.stream().map(placa -> String.format("%s\n", placa.content())).toList();
         String placasString = String.join("\n", listPlacas);

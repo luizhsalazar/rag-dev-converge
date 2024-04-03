@@ -1,6 +1,6 @@
 package br.gov.sc.ciasc.ragdevconverge.service;
 
-import br.gov.sc.ciasc.ragdevconverge.model.ChatResponse;
+import br.gov.sc.ciasc.ragdevconverge.model.RagResponse;
 import org.springframework.ai.chat.ChatClient;
 import org.springframework.ai.chat.StreamingChatClient;
 import org.springframework.stereotype.Service;
@@ -17,9 +17,9 @@ public class ChatService {
         this.streamingChatClient = streamingChatClient;
     }
 
-    public ChatResponse generateMessage(String userQuery) {
+    public RagResponse generateMessage(String userQuery) {
         final String llamaMessage = chatClient.call(userQuery);
-        return new ChatResponse(llamaMessage);
+        return new RagResponse(llamaMessage);
     }
 
     public Flux<String> generateMessageStream(String userQuery) {

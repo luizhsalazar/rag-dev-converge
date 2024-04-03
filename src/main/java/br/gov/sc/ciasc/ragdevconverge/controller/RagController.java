@@ -1,6 +1,6 @@
 package br.gov.sc.ciasc.ragdevconverge.controller;
 
-import br.gov.sc.ciasc.ragdevconverge.model.ChatResponse;
+import br.gov.sc.ciasc.ragdevconverge.model.RagResponse;
 import br.gov.sc.ciasc.ragdevconverge.service.MemoryRagService;
 import br.gov.sc.ciasc.ragdevconverge.service.RagService;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +22,13 @@ public class RagController {
     }
 
     @GetMapping()
-    public ResponseEntity<ChatResponse> ragPlacas(@RequestParam String userQuery) {
+    public ResponseEntity<RagResponse> ragPlacas(@RequestParam String userQuery) {
         var rag = ragService.rag(userQuery);
         return ResponseEntity.ok(rag);
     }
 
     @GetMapping("/with-memory")
-    public ResponseEntity<ChatResponse> ragPlacasWithMemory(@RequestParam String userQuery) {
+    public ResponseEntity<RagResponse> ragPlacasWithMemory(@RequestParam String userQuery) {
         var rag = memoryRagService.rag(userQuery);
         return ResponseEntity.ok(rag);
     }

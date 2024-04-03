@@ -1,6 +1,6 @@
 package br.gov.sc.ciasc.ragdevconverge.controller;
 
-import br.gov.sc.ciasc.ragdevconverge.model.ChatResponse;
+import br.gov.sc.ciasc.ragdevconverge.model.RagResponse;
 import br.gov.sc.ciasc.ragdevconverge.model.Alpr;
 import br.gov.sc.ciasc.ragdevconverge.service.ChatService;
 import br.gov.sc.ciasc.ragdevconverge.service.AlprService;
@@ -27,9 +27,9 @@ public class ChatController {
     }
 
     @GetMapping()
-    public ResponseEntity<ChatResponse> generateMessage(@RequestParam String userQuery) {
-        ChatResponse chatResponse = chatService.generateMessage(userQuery);
-        return ResponseEntity.status(HttpStatus.OK).body(chatResponse);
+    public ResponseEntity<RagResponse> generateMessage(@RequestParam String userQuery) {
+        RagResponse ragResponse = chatService.generateMessage(userQuery);
+        return ResponseEntity.status(HttpStatus.OK).body(ragResponse);
     }
 
     @GetMapping(value = "/stream")

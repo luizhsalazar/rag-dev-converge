@@ -1,6 +1,6 @@
 package br.gov.sc.ciasc.ragdevconverge.service;
 
-import br.gov.sc.ciasc.ragdevconverge.model.ChatResponse;
+import br.gov.sc.ciasc.ragdevconverge.model.RagResponse;
 import dev.langchain4j.data.message.AiMessage;
 import dev.langchain4j.data.message.UserMessage;
 import dev.langchain4j.memory.ChatMemory;
@@ -35,7 +35,7 @@ public class MemoryRagService {
         chatMemory = MessageWindowChatMemory.withMaxMessages(20);
     }
 
-    public ChatResponse rag(String userQuery) {
+    public RagResponse rag(String userQuery) {
         ChatLanguageModel model = OpenAiChatModel.withApiKey(openAiKey);
         var userPrompt = userQuery;
 
@@ -51,6 +51,6 @@ public class MemoryRagService {
         AiMessage answer = model.generate(chatMemory.messages()).content();
         chatMemory.add(answer);
 
-        return new ChatResponse(answer.text());
+        return new RagResponse(answer.text());
     }
 }

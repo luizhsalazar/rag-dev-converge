@@ -1,4 +1,4 @@
 package br.gov.sc.ciasc.ragdevconverge.model;
 
-public record ChatResponse(String message){
+public record RagResponse(String message){
 }

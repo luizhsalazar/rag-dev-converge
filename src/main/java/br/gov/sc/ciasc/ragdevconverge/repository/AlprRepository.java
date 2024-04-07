@@ -15,7 +15,7 @@ public class AlprRepository {
         this.jdbcClient = jdbcClient;
     }
 
-    public List<Alpr> buscaPlacas(String promptEmbedding, int limit) {
+    public List<Alpr> search(String promptEmbedding, int limit) {
         String query = "SELECT content, 1 - (embedding <=> :user_promt::vector) AS cosine_similarity " +
                 "        FROM embeddings_placas_anon " +
                 "        ORDER BY cosine_similarity desc " +

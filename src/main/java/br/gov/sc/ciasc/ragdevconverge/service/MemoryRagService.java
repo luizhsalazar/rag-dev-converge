@@ -35,12 +35,12 @@ public class MemoryRagService {
         chatMemory = MessageWindowChatMemory.withMaxMessages(20);
     }
 
-    public RagResponse rag(String userQuery) {
+    public RagResponse ragWithMemory(String userQuery) {
         ChatLanguageModel model = OpenAiChatModel.withApiKey(openAiKey);
         var userPrompt = userQuery;
 
         if (chatMemory.messages().isEmpty()) {
-            var placas = alprService.buscaPlacas(userPrompt, 5);
+            var placas = alprService.search(userPrompt, 5);
             List<String> listPlacas = placas.stream().map(placa -> String.format("%s\n", placa.content())).toList();
             String placasString = String.join("\n", listPlacas);
 

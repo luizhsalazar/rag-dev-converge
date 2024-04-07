@@ -23,19 +23,20 @@ public class RagController {
     }
 
     @GetMapping()
-    public ResponseEntity<RagResponse> ragPlacas(@RequestParam String userQuery) {
-        var rag = ragService.rag(userQuery);
+    public ResponseEntity<RagResponse> rag(@RequestParam String userQuery, @RequestParam(required = false, defaultValue = "10") int contextSize) {
+        var rag = ragService.rag(userQuery, contextSize);
         return ResponseEntity.ok(rag);
     }
 
     @GetMapping("/stream")
-    public Flux<String> ragPlacasStream(@RequestParam String userQuery) {
+    public Flux<String> ragStream(@RequestParam String userQuery) {
         return ragService.ragStream(userQuery);
     }
 
+    // todo: Rever se faz sentido manter essa rota para exemplo
     @GetMapping("/with-memory")
-    public ResponseEntity<RagResponse> ragPlacasWithMemory(@RequestParam String userQuery) {
-        var rag = memoryRagService.rag(userQuery);
+    public ResponseEntity<RagResponse> ragWithMemory(@RequestParam String userQuery) {
+        var rag = memoryRagService.ragWithMemory(userQuery);
         return ResponseEntity.ok(rag);
     }
 }

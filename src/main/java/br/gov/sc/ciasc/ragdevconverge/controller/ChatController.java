@@ -1,7 +1,6 @@
 package br.gov.sc.ciasc.ragdevconverge.controller;
 
 import br.gov.sc.ciasc.ragdevconverge.model.RagResponse;
-import br.gov.sc.ciasc.ragdevconverge.service.AlprService;
 import br.gov.sc.ciasc.ragdevconverge.service.ChatService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +15,9 @@ import reactor.core.publisher.Flux;
 public class ChatController {
 
     private final ChatService chatService;
-    private final AlprService alprService;
 
-    public ChatController(ChatService chatService1, AlprService alprService) {
-        this.chatService = chatService1;
-        this.alprService = alprService;
+    public ChatController(ChatService chatService) {
+        this.chatService = chatService;
     }
 
     @GetMapping()

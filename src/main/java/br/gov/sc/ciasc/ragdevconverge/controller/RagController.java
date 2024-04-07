@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 @RestController
 @RequestMapping("/api/rag")
@@ -25,6 +26,11 @@ public class RagController {
     public ResponseEntity<RagResponse> ragPlacas(@RequestParam String userQuery) {
         var rag = ragService.rag(userQuery);
         return ResponseEntity.ok(rag);
+    }
+
+    @GetMapping("/stream")
+    public Flux<String> ragPlacasStream(@RequestParam String userQuery) {
+        return ragService.ragStream(userQuery);
     }
 
     @GetMapping("/with-memory")

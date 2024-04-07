@@ -2,6 +2,7 @@ package br.gov.sc.ciasc.ragdevconverge.service;
 
 import br.gov.sc.ciasc.ragdevconverge.model.RagResponse;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -34,12 +35,21 @@ public class RagService {
     }
 
     public RagResponse rag(String userQuery) {
+        String promptAumentado = getPromptAumentado(userQuery);
+        return chatService.generateMessage(promptAumentado);
+    }
+
+    public Flux<String> ragStream(String userQuery) {
+        String promptAumentado = getPromptAumentado(userQuery);
+        return chatService.generateMessageStream(promptAumentado);
+    }
+
+    private String getPromptAumentado(String userQuery) {
         var placas = alprService.buscaPlacas(userQuery, 5);
         List<String> listPlacas = placas.stream().map(placa -> String.format("%s\n", placa.content())).toList();
         String placasString = String.join("\n", listPlacas);
 
         String promptAumentado = String.format(PROMPT_AUMENTADO, placasString, userQuery);
-
-        return chatService.generateMessage(promptAumentado);
+        return promptAumentado;
     }
 }

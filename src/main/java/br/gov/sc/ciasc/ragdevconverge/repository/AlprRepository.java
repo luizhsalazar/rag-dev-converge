@@ -17,7 +17,7 @@ public class AlprRepository {
 
     public List<Alpr> search(String promptEmbedding, int limit) {
         String query = "SELECT content, 1 - (embedding <=> :user_promt::vector) AS cosine_similarity " +
-                "        FROM embeddings_placas_anon " +
+                "        FROM embeddings_placas " +
                 "        ORDER BY cosine_similarity desc " +
                 "        LIMIT :limit";
 

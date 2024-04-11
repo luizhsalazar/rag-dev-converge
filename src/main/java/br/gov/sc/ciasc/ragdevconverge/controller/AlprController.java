@@ -21,6 +21,6 @@ public class AlprController {
 
     @GetMapping()
     public List<Alpr> buscaPlacas(@RequestParam String userQuery) {
-        return alprService.search(userQuery, 5);
+        return alprService.search(userQuery, 10);
     }
 }

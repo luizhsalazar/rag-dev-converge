@@ -35,8 +35,8 @@ public class RagService {
     }
 
     public RagResponse rag(String userQuery, int contextSize) {
-        Prompt promptAumentado = getAugmentedPrompt(userQuery, contextSize);
-        return chatService.generateMessage(promptAumentado);
+        Prompt augmentedPrompt = getAugmentedPrompt(userQuery, contextSize);
+        return chatService.generateMessage(augmentedPrompt);
     }
 
     public Flux<String> ragStream(String userQuery) {

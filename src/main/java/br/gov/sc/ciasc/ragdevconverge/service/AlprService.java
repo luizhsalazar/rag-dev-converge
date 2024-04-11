@@ -18,9 +18,9 @@ public class AlprService {
         this.alprRepository = alprRepository;
     }
 
-    public List<Alpr> search(String prompt, int limit) {
-        List<Double> promptEmbed = embeddingClient.embed(prompt);
+    public List<Alpr> search(String userQuery, int contextSize) {
+        List<Double> promptEmbed = embeddingClient.embed(userQuery);
 
-        return alprRepository.search(promptEmbed.toString(), limit);
+        return alprRepository.search(promptEmbed.toString(), contextSize);
     }
 }

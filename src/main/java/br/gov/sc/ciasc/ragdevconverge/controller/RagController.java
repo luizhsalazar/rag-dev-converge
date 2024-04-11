@@ -34,9 +34,9 @@ public class RagController {
     }
 
     // todo: Rever se faz sentido manter essa rota para exemplo
-    @GetMapping("/with-memory")
-    public ResponseEntity<RagResponse> ragWithMemory(@RequestParam String userQuery) {
-        var rag = memoryRagService.ragWithMemory(userQuery);
-        return ResponseEntity.ok(rag);
-    }
+//    @GetMapping("/with-memory")
+//    public ResponseEntity<RagResponse> ragWithMemory(@RequestParam String userQuery) {
+//        var rag = memoryRagService.ragWithMemory(userQuery);
+//        return ResponseEntity.ok(rag);
+//    }
 }
